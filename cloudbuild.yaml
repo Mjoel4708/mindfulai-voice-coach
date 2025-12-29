@@ -1,14 +1,18 @@
 steps:
   # Build the backend Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/mindfulai-backend', '-f', 'backend/Dockerfile', 'backend']
+    id: 'Build'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/mindfulai-backend', '.']
+    dir: 'backend'
 
   # Push the image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
+    id: 'Push'
     args: ['push', 'gcr.io/$PROJECT_ID/mindfulai-backend']
 
   # Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'Deploy'
     entrypoint: gcloud
     args:
       - 'run'
