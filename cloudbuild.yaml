@@ -32,3 +32,6 @@ steps:
 
 images:
   - 'gcr.io/$PROJECT_ID/mindfulai-backend'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
