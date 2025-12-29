@@ -30,6 +30,10 @@ steps:
       - '8000'
       - '--memory'
       - '1Gi'
+      - '--add-cloudsql-instances'
+      - '${_CLOUDSQL_CONNECTION_NAME}'
+      - '--set-env-vars'
+      - 'DATABASE_URL=postgresql+asyncpg://${_DB_USER}:${_DB_PASSWORD}@/${_DB_NAME}?host=/cloudsql/${_CLOUDSQL_CONNECTION_NAME}'
 
   # ===== FRONTEND =====
   # Get the backend URL from Cloud Run
@@ -90,3 +94,16 @@ images:
 
 options:
   logging: CLOUD_LOGGING_ONLY
+
+# ALL substitution values must be set in Cloud Build Trigger settings
+# Go to: Cloud Build > Triggers > Edit > Substitution variables
+# Add these variables:
+#   _CLOUDSQL_CONNECTION_NAME = your-project:region:instance-name
+#   _DB_USER = postgres
+#   _DB_PASSWORD = your-secure-password
+#   _DB_NAME = wellness_coach
+substitutions:
+  _CLOUDSQL_CONNECTION_NAME: ''
+  _DB_USER: ''
+  _DB_PASSWORD: ''
+  _DB_NAME: ''
