@@ -249,6 +249,11 @@ ai-mental-coach/
 | Working Application | Full-stack voice-first wellness coach |
 | Innovation | Event-driven AI with transparent decision-making |
 
+## 👤 Author
+
+**Michael Orwa**
+- GitHub: [@orwa](https://github.com/mjoel4708)
+
 ## 📜 License
 
 MIT License - see [LICENSE](LICENSE) file.
