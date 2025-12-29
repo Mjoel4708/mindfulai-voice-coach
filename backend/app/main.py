@@ -22,13 +22,19 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Starting AI Mental Wellness Coach API")
     
-    # Initialize Kafka producer
+    # Initialize Kafka producer (graceful - won't crash if not configured)
     app.state.kafka_producer = KafkaProducerService()
-    await app.state.kafka_producer.start()
+    try:
+        await app.state.kafka_producer.start()
+    except Exception as e:
+        logger.warning("Kafka producer failed to start", error=str(e))
     
-    # Initialize database
+    # Initialize database (graceful - won't crash if not configured)
     app.state.db = DatabaseService()
-    await app.state.db.connect()
+    try:
+        await app.state.db.connect()
+    except Exception as e:
+        logger.warning("Database failed to connect", error=str(e))
     
     # Wire up Observable AI Cognition event store for admin dashboard
     set_event_store_adder(get_event_store_adder())
@@ -40,8 +46,14 @@ async def lifespan(app: FastAPI):
     
     # Shutdown
     logger.info("Shutting down AI Mental Wellness Coach API")
-    await app.state.kafka_producer.stop()
-    await app.state.db.disconnect()
+    try:
+        await app.state.kafka_producer.stop()
+    except Exception:
+        pass
+    try:
+        await app.state.db.disconnect()
+    except Exception:
+        pass
     logger.info("Application shutdown complete")
 
 
