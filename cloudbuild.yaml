@@ -39,9 +39,9 @@ steps:
     args:
       - '-c'
       - |
-        BACKEND_URL=$(gcloud run services describe mindfulai-backend --region=us-central1 --format='value(status.url)')
-        echo "BACKEND_URL=$BACKEND_URL" > /workspace/backend_url.env
-        echo "Backend URL: $BACKEND_URL"
+        BACKEND_SVC_URL=$$(gcloud run services describe mindfulai-backend --region=us-central1 --format='value(status.url)')
+        echo "BACKEND_SVC_URL=$$BACKEND_SVC_URL" > /workspace/backend_url.env
+        echo "Backend URL: $$BACKEND_SVC_URL"
 
   # Build the frontend Docker image with backend URL
   - name: 'gcr.io/cloud-builders/docker'
@@ -51,10 +51,10 @@ steps:
       - '-c'
       - |
         source /workspace/backend_url.env
-        WS_URL=$(echo $BACKEND_URL | sed 's/https:/wss:/')
+        WS_URL=$$(echo $$BACKEND_SVC_URL | sed 's/https:/wss:/')
         docker build \
-          --build-arg VITE_API_URL=$BACKEND_URL \
-          --build-arg VITE_WS_URL=$WS_URL \
+          --build-arg VITE_API_URL=$$BACKEND_SVC_URL \
+          --build-arg VITE_WS_URL=$$WS_URL \
           -t gcr.io/$PROJECT_ID/mindfulai-frontend \
           .
     dir: 'frontend'
