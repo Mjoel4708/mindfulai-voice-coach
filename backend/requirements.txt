@@ -4,9 +4,10 @@ uvicorn[standard]==0.27.0
 python-multipart==0.0.6
 websockets==12.0
 
-# Google Cloud / Vertex AI
+# Google Cloud / Vertex AI / Gemini
 google-cloud-aiplatform==1.38.1
 google-auth==2.27.0
+google-genai>=1.0.0
 
 # ElevenLabs
 elevenlabs==1.1.2
