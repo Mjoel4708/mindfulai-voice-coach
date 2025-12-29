@@ -33,7 +33,7 @@ steps:
       - '--add-cloudsql-instances'
       - '${_CLOUDSQL_CONNECTION_NAME}'
       - '--set-env-vars'
-      - 'DATABASE_URL=postgresql+asyncpg://${_DB_USER}:${_DB_PASSWORD}@/${_DB_NAME}?host=/cloudsql/${_CLOUDSQL_CONNECTION_NAME}'
+      - 'DATABASE_URL=postgresql+asyncpg://${_DB_USER}:${_DB_PASSWORD}@/${_DB_NAME}?host=/cloudsql/${_CLOUDSQL_CONNECTION_NAME},GOOGLE_CLOUD_PROJECT=$PROJECT_ID,VERTEX_AI_LOCATION=us-central1,ELEVENLABS_API_KEY=${_ELEVENLABS_API_KEY},ELEVENLABS_VOICE_ID=${_ELEVENLABS_VOICE_ID},KAFKA_BOOTSTRAP_SERVERS=${_KAFKA_BOOTSTRAP_SERVERS},KAFKA_API_KEY=${_KAFKA_API_KEY},KAFKA_API_SECRET=${_KAFKA_API_SECRET}'
 
   # ===== FRONTEND =====
   # Get the backend URL from Cloud Run
@@ -98,12 +98,22 @@ options:
 # ALL substitution values must be set in Cloud Build Trigger settings
 # Go to: Cloud Build > Triggers > Edit > Substitution variables
 # Add these variables:
-#   _CLOUDSQL_CONNECTION_NAME = your-project:region:instance-name
+#   _CLOUDSQL_CONNECTION_NAME = lustrous-center-482511-v1:us-central1:mindfulai-db
 #   _DB_USER = postgres
-#   _DB_PASSWORD = your-secure-password
+#   _DB_PASSWORD = your-db-password
 #   _DB_NAME = wellness_coach
+#   _ELEVENLABS_API_KEY = your-elevenlabs-api-key
+#   _ELEVENLABS_VOICE_ID = 21m00Tcm4TlvDq8ikWAM
+#   _KAFKA_BOOTSTRAP_SERVERS = your-kafka-servers (optional)
+#   _KAFKA_API_KEY = your-kafka-key (optional)
+#   _KAFKA_API_SECRET = your-kafka-secret (optional)
 substitutions:
   _CLOUDSQL_CONNECTION_NAME: ''
   _DB_USER: ''
   _DB_PASSWORD: ''
   _DB_NAME: ''
+  _ELEVENLABS_API_KEY: ''
+  _ELEVENLABS_VOICE_ID: '21m00Tcm4TlvDq8ikWAM'
+  _KAFKA_BOOTSTRAP_SERVERS: ''
+  _KAFKA_API_KEY: ''
+  _KAFKA_API_SECRET: ''
