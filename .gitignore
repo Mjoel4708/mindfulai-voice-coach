@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Testing
+coverage/
+htmlcov/
+.coverage
+
+# Build outputs
+frontend/dist/
+backend/*.egg-info/
+
+# Docker
+*.tar
+
+# Temporary files
+tmp/
+temp/
+
+# Credentials (NEVER commit these)
+*.pem
+*.key
+credentials.json
+service-account.json
+
+# GitHub Copilot instructions (internal use only)
+.github/
+
+# Hackathon submission docs (private)
+DEVPOST.md
