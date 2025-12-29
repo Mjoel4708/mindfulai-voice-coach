@@ -45,7 +45,7 @@ export interface AIDecisions {
 
 // WebSocket message types
 export interface WebSocketMessage {
-  type: 'user_speech' | 'ping' | 'coach_response' | 'safety_alert' | 'error' | 'pong';
+  type: 'user_speech' | 'ping' | 'coach_response' | 'safety_alert' | 'error' | 'pong' | 'session_closure_ready';
   transcript?: string;
   audio_duration?: number;
   text?: string;
